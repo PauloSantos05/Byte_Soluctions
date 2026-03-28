@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Byte Soluctions — Enterprise Technology Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --navy-light: #1a3260;
+    --slate: #2c3e5a;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f8f5ef;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --gray-light: #e8eaed;
+    --text: #1a1e2e;
+    --border: #dde1e8;
+    --shadow: 0 4px 24px rgba(15,31,61,0.10);
+    --shadow-lg: 0 16px 56px rgba(15,31,61,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+
+  .logo {
+    display: flex; align-items: center; gap: 0.65rem;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; letter-spacing: -0.02em;
+  }
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--navy); letter-spacing: -0.01em;
+  }
+  .logo-text span { color: var(--gold); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--slate);
+    font-size: 0.875rem; font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .nav-links a:hover { color: var(--navy); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    background: var(--navy);
+    color: var(--white);
+    padding: 0.6rem 1.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.875rem; font-weight: 500;
+    border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .nav-cta:hover { background: var(--navy-light); transform: translateY(-1px); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 5rem;
+    padding-top: 72px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-shape {
+    position: absolute;
+    right: -80px; top: 0; bottom: 0;
+    width: 55%;
+    background: var(--navy);
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  .hero-left {
+    position: relative; z-index: 2;
+    padding-right: 3rem;
+    animation: fadeLeft 0.8s ease both;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.35rem 1rem;
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: #8a6b1e;
+    margin-bottom: 2rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 4.5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--slate);
+    line-height: 1.75;
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; align-items: center; }
+
+  .btn-primary {
+    background: var(--navy);
+    color: var(--white);
+    padding: 0.875rem 2rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem; font-weight: 500;
+    letter-spacing: 0.03em;
+    border: none; cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--navy-light); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--navy);
+    padding: 0.875rem 2rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem; font-weight: 500;
+    letter-spacing: 0.03em;
+    border: 1.5px solid var(--navy);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { background: var(--navy); color: var(--white); }
+
+  .hero-right {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column;
+    gap: 1rem;
+    animation: fadeRight 0.8s 0.2s ease both;
+    padding-left: 4rem;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 2rem;
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+  .stat-card .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    min-width: 80px;
+  }
+  .stat-card .label { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
+  .stat-card .label strong { display: block; color: var(--white); font-size: 1rem; margin-bottom: 0.1rem; }
+
+  @keyframes fadeLeft { from{opacity:0;transform:translateX(-30px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes fadeRight { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  /* DIVIDER */
+  .divider-strip {
+    background: var(--navy);
+    padding: 1.5rem 5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    overflow: hidden;
+  }
+  .divider-strip .strip-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .strip-item .dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+
+  /* SECTIONS BASE */
+  section { padding: 7rem 5rem; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    display: block; width: 24px; height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--gray);
+    line-height: 1.75;
+    max-width: 520px;
+    font-weight: 300;
+  }
+
+  /* SERVICES */
+  #services { background: var(--white); }
+  .services-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 4rem;
+    gap: 2rem;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1.5px solid var(--border);
+  }
+  .service-card {
+    background: var(--white);
+    padding: 2.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .service-card:hover { background: #f7f9fc; }
+  .service-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--gold);
+    transform: scaleY(0); transform-origin: bottom;
+    transition: transform 0.35s ease;
+  }
+  .service-card:hover::before { transform: scaleY(1); }
+
+  .service-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 700;
+    color: var(--gray-light);
+    line-height: 1;
+    margin-bottom: 1.25rem;
+    transition: color 0.3s;
+  }
+  .service-card:hover .service-number { color: rgba(201,168,76,0.2); }
+
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+
+  .service-desc { font-size: 0.875rem; color: var(--gray); line-height: 1.8; margin-bottom: 1.5rem; }
+
+  .service-features { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .service-features li {
+    font-size: 0.8rem; color: var(--slate);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .service-features li::before {
+    content: '—';
+    color: var(--gold); font-weight: 600;
+  }
+
+  /* ABOUT */
+  #about { background: var(--cream); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+
+  .about-visual { position: relative; }
+  .about-img-frame {
+    background: var(--navy);
+    aspect-ratio: 4/5;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-img-frame::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom right, rgba(201,168,76,0.15), transparent);
+  }
+  .about-pattern {
+    width: 100%; height: 100%;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 60px),
+      repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 60px);
+  }
+  .about-icon-center {
+    position: absolute;
+    font-size: 5rem;
+    z-index: 2;
+    filter: drop-shadow(0 0 40px rgba(201,168,76,0.3));
+  }
+  .about-badge {
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 140px; height: 140px;
+    background: var(--gold);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 3;
+  }
+  .about-badge .big { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--navy); line-height: 1; }
+  .about-badge .sm { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); opacity: 0.7; margin-top: 0.2rem; text-align: center; }
+
+  .about-frame-line {
+    position: absolute; top: 20px; left: 20px;
+    width: calc(100% - 40px); height: calc(100% - 40px);
+    border: 1px solid rgba(201,168,76,0.2);
+    pointer-events: none; z-index: 2;
+  }
+
+  .about-text {}
+  .about-values { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+  .value-item { display: flex; gap: 1.25rem; align-items: flex-start; }
+  .value-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .value-title { font-weight: 600; font-size: 0.9rem; color: var(--navy); margin-bottom: 0.2rem; }
+  .value-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+
+  /* PORTFOLIO */
+  #portfolio { background: var(--white); }
+  .portfolio-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; }
+  .projects-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1.5px solid var(--border); }
+
+  .project-row {
+    background: var(--white);
+    display: grid; grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    padding: 2rem 2.5rem;
+    gap: 2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-row::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .project-row:hover { background: #f7f9fc; }
+  .project-row:hover::after { transform: scaleX(1); }
+
+  .project-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--gray-light);
+  }
+  .project-info {}
+  .project-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--navy); margin-bottom: 0.3rem; }
+  .project-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.5; }
+  .project-tags { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+  .ptag {
+    font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.2rem 0.65rem;
+    background: var(--cream); color: var(--slate);
+    border: 1px solid var(--border);
+  }
+  .project-arrow {
+    width: 44px; height: 44px;
+    border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    transition: background 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+  }
+  .project-row:hover .project-arrow { background: var(--navy); border-color: var(--navy); color: var(--white); }
+
+  /* CONTACT */
+  #contact { background: var(--navy); }
+  #contact .section-title { color: var(--white); }
+  #contact .section-label { color: var(--gold-light); }
+  #contact .section-label::before { background: var(--gold-light); }
+  #contact .section-sub { color: rgba(255,255,255,0.6); }
+
+  .contact-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; margin-top: 4rem; align-items: start; }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item { display: flex; gap: 1.25rem; align-items: flex-start; }
+  .contact-item-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .contact-item-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.25rem; }
+  .contact-item-val { font-size: 0.9rem; color: rgba(255,255,255,0.8); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  .field input, .field textarea, .field select {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--white);
+    padding: 0.85rem 1.1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem; font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    resize: vertical;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.09);
+  }
+  .field select option { background: var(--navy); }
+  .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.3); }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 1rem 2.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    letter-spacing: 0.04em;
+    border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    align-self: flex-start;
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.35); }
+
+  /* FOOTER */
+  footer {
+    background: #080f1e;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem 5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem;
+  }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { text-decoration: none; color: rgba(255,255,255,0.4); font-size: 0.8rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold-light); }
+  footer .copyright { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay { transition-delay: 0.15s; }
+  .reveal-delay2 { transition-delay: 0.3s; }
+
+  @media (max-width: 960px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    #hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+    .hero-bg-shape { display: none; }
+    .hero-right { padding-left: 0; }
+    .stat-card { background: rgba(15,31,61,0.06); border-color: var(--border); }
+    .stat-card .num { color: var(--gold); }
+    .stat-card .label { color: var(--slate); }
+    .stat-card .label strong { color: var(--navy); }
+    .services-grid { grid-template-columns: 1fr; }
+    .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .divider-strip { gap: 1.5rem; flex-wrap: wrap; padding: 1.5rem; }
+    .portfolio-header, .services-header { flex-direction: column; align-items: flex-start; }
+    footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="logo">
+    <div class="logo-icon">BS</div>
+    <span class="logo-text">Byte<span>.</span>Soluctions</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request a Consultation</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-shape"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">Enterprise Technology Partner</div>
+    <h1 class="hero-title">
+      Technology that<br>
+      <em>works for you,</em><br>
+      not against you.
+    </h1>
+    <p class="hero-desc">Byte Soluctions provides end-to-end IT services for growing businesses — from daily support to long-term infrastructure strategy. Reliable, documented, and built to scale.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore Our Services</a>
+      <a href="#portfolio" class="btn-outline">View Portfolio</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="num">99.9%</div>
+      <div class="label"><strong>Uptime Guaranteed</strong>Infrastructure availability SLA across all managed environments.</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">&lt;2h</div>
+      <div class="label"><strong>Average Response Time</strong>From ticket open to first meaningful action, every time.</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">50+</div>
+      <div class="label"><strong>Projects Delivered</strong>Across IT support, web development, cloud, and security.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER STRIP -->
+<div class="divider-strip">
+  <div class="strip-item"><span class="dot"></span>IT Support & Helpdesk</div>
+  <div class="strip-item"><span class="dot"></span>Web Development</div>
+  <div class="strip-item"><span class="dot"></span>Cloud & Infrastructure</div>
+  <div class="strip-item"><span class="dot"></span>Cybersecurity</div>
+  <div class="strip-item"><span class="dot"></span>Network Configuration</div>
+  <div class="strip-item"><span class="dot"></span>Technical Documentation</div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-label">Our Services</div>
+      <h2 class="section-title">Four pillars.<br>One partner.</h2>
+    </div>
+    <p class="section-sub">We don't do generic. Every engagement is scoped, documented, and executed with senior-level attention to detail.</p>
+  </div>
+  <div class="services-grid reveal reveal-delay">
+    <div class="service-card">
+      <div class="service-number">01</div>
+      <div class="service-title">IT Support & Helpdesk</div>
+      <p class="service-desc">Rapid, reliable support that keeps your team running. Remote and on-site assistance, hardware diagnostics, and full ticket lifecycle management — from open to close.</p>
+      <ul class="service-features">
+        <li>Remote & on-site incident resolution</li>
+        <li>Hardware maintenance & upgrades</li>
+        <li>Software installation & configuration</li>
+        <li>User account & password management</li>
+        <li>IT best-practice training</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-number">02</div>
+      <div class="service-title">Web Development</div>
+      <p class="service-desc">Custom web applications built for real workflows. From internal tools to client-facing portals, we develop with modern stacks and leverage AI to accelerate delivery without sacrificing quality.</p>
+      <ul class="service-features">
+        <li>Internal tools & ticketing platforms</li>
+        <li>AI-assisted development workflows</li>
+        <li>API integrations & automation</li>
+        <li>Performance optimization</li>
+        <li>Technical documentation</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-number">03</div>
+      <div class="service-title">Cloud & Infrastructure</div>
+      <p class="service-desc">Network architecture, cloud migrations, and backup strategies designed for resilience. We configure, document, and hand over — so your team can manage it independently.</p>
+      <ul class="service-features">
+        <li>LAN / Wi-Fi design & configuration</li>
+        <li>Cloud migration & setup</li>
+        <li>IP management & connectivity</li>
+        <li>Backup strategy & execution</li>
+        <li>Printer & peripheral setup</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-number">04</div>
+      <div class="service-title">Cybersecurity</div>
+      <p class="service-desc">Proactive protection before incidents become crises. We audit, deploy, and train — building a security posture your organization can sustain long after we leave.</p>
+      <ul class="service-features">
+        <li>Antivirus & endpoint protection</li>
+        <li>Access control & policy definition</li>
+        <li>Password & identity management</li>
+        <li>Security awareness training</li>
+        <li>Audit & compliance documentation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-img-frame">
+        <div class="about-pattern"></div>
+        <div class="about-icon-center">💼</div>
+        <div class="about-frame-line"></div>
+      </div>
+      <div class="about-badge">
+        <div class="big">N1</div>
+        <div class="sm">Support<br>Certified</div>
+      </div>
+    </div>
+    <div class="about-text reveal reveal-delay">
+      <div class="section-label">About Us</div>
+      <h2 class="section-title">Built from the<br>ground up, in the field.</h2>
+      <p class="section-sub">Byte Soluctions was built by practitioners — people who have managed high-volume helpdesk environments, configured production networks, and developed internal tools that teams actually use. We bring real-world experience to every engagement.</p>
+      <div class="about-values">
+        <div class="value-item">
+          <div class="value-icon">📋</div>
+          <div>
+            <div class="value-title">Documentation first</div>
+            <div class="value-desc">Every resolution, every configuration, every process is written down. Good IT is reproducible IT.</div>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">⚡</div>
+          <div>
+            <div class="value-title">Speed with accountability</div>
+            <div class="value-desc">High-volume ticket management without cutting corners. SLAs are commitments, not suggestions.</div>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">🤝</div>
+          <div>
+            <div class="value-title">Knowledge transfer</div>
+            <div class="value-desc">We build solutions your team can own. No vendor lock-in, no black boxes — just capable clients.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="portfolio-header reveal">
+    <div>
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title">Projects that<br>deliver results.</h2>
+    </div>
+    <p class="section-sub">A selection of engagements across our core service areas — built, deployed, and documented.</p>
+  </div>
+  <div class="projects-list reveal reveal-delay">
+    <div class="project-row">
+      <div class="project-num">01</div>
+      <div class="project-info">
+        <div class="project-title">InternalDesk — Support Ticketing Portal</div>
+        <p class="project-desc">AI-assisted internal ticketing system with automated categorization, SLA tracking, and follow-up workflows. Reduced average resolution time by 40% across a 200-user organization.</p>
+        <div class="project-tags">
+          <span class="ptag">Web App</span>
+          <span class="ptag">AI Integration</span>
+          <span class="ptag">Helpdesk</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+    <div class="project-row">
+      <div class="project-num">02</div>
+      <div class="project-info">
+        <div class="project-title">SecureNet — Network Audit & Hardening</div>
+        <p class="project-desc">Full network audit and security hardening for a mid-size enterprise. Included Wi-Fi segmentation, VLAN design, and endpoint security deployment across 80+ devices.</p>
+        <div class="project-tags">
+          <span class="ptag">Networking</span>
+          <span class="ptag">Cybersecurity</span>
+          <span class="ptag">Infrastructure</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+    <div class="project-row">
+      <div class="project-num">03</div>
+      <div class="project-info">
+        <div class="project-title">CloudShift — Legacy Infrastructure Migration</div>
+        <p class="project-desc">End-to-end migration from on-premise servers to a cloud environment with zero data loss. Included backup strategy, full documentation, and staff training for autonomous management.</p>
+        <div class="project-tags">
+          <span class="ptag">Cloud</span>
+          <span class="ptag">Migration</span>
+          <span class="ptag">Backup</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+    <div class="project-row">
+      <div class="project-num">04</div>
+      <div class="project-info">
+        <div class="project-title">EndpointGuard — Antivirus Rollout Program</div>
+        <p class="project-desc">Coordinated enterprise antivirus deployment and user awareness training program. Covered policy definition, access control review, and incident response planning.</p>
+        <div class="project-tags">
+          <span class="ptag">Security</span>
+          <span class="ptag">Deployment</span>
+          <span class="ptag">Training</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Ready to start?<br>Let's talk.</h2>
+    <p class="section-sub">Tell us about your challenge. We'll respond within one business day with a clear path forward.</p>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-info reveal">
+      <div class="contact-item">
+        <div class="contact-item-icon">📧</div>
+        <div>
+          <div class="contact-item-title">Email</div>
+          <div class="contact-item-val">contact@bytesoluctions.io</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📞</div>
+        <div>
+          <div class="contact-item-title">Phone</div>
+          <div class="contact-item-val">+55 (51) 99999-0000</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📍</div>
+        <div>
+          <div class="contact-item-title">Location</div>
+          <div class="contact-item-val">Porto Alegre, RS — Brazil<br><span style="font-size:0.8rem;opacity:0.6">Remote services available nationwide</span></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">🕐</div>
+        <div>
+          <div class="contact-item-title">Business Hours</div>
+          <div class="contact-item-val">Mon – Fri, 08h – 18h (BRT)</div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form reveal reveal-delay" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your name"/>
+        </div>
+        <div class="field">
+          <label>Company</label>
+          <input type="text" placeholder="Company name"/>
+        </div>
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@company.com"/>
+      </div>
+      <div class="field">
+        <label>Service Needed</label>
+        <select>
+          <option value="">Select a service...</option>
+          <option>IT Support & Helpdesk</option>
+          <option>Web Development</option>
+          <option>Cloud & Infrastructure</option>
+          <option>Cybersecurity</option>
+          <option>Multiple / Not sure yet</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Message</label>
+        <textarea rows="4" placeholder="Describe your project, challenge, or question..."></textarea>
+      </div>
+      <button type="submit" class="btn-gold" id="submitBtn">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#hero" class="logo" style="filter:brightness(10)">
+    <div class="logo-icon">BS</div>
+    <span class="logo-text" style="color:#fff">Byte<span>.</span>Soluctions</span>
+  </a>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <span class="copyright">© 2025 Byte Soluctions. All rights reserved.</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.08 });
+  els.forEach(el => obs.observe(el));
+
+  // Smooth nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Message received ✓';
+    btn.style.background = '#28c840';
+    btn.style.color = '#fff';
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+      btn.style.color = '';
+      e.target.reset();
+    }, 3500);
+  }
+
+  // Subtle nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 40 ? '0 4px 32px rgba(15,31,61,0.10)' : 'none';
+  });
+</script>
+</body>
+</html>
